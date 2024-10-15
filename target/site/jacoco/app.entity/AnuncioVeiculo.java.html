@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AnuncioVeiculo.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">WAVEMOTORS</a> &gt; <a href="index.source.html" class="el_package">app.entity</a> &gt; <span class="el_source">AnuncioVeiculo.java</span></div><h1>AnuncioVeiculo.java</h1><pre class="source lang-java linenums">	package app.entity;
+
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+<span class="nc" id="L25">@AllArgsConstructor</span>
+<span class="fc" id="L26">@NoArgsConstructor</span>
+@Entity
+public class AnuncioVeiculo {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long idAnuncio;
+
+	@NotBlank
+	private String cor;
+	
+	@NotBlank
+	private String imagem;
+
+	@NotBlank
+	private String modelo;
+
+	@NotNull
+	private int ano;
+
+	@NotNull
+	private String combustivel;
+
+	@NotNull
+	private double valorcarro;
+
+	//@Pattern(regexp = &quot;^'&quot;, message = &quot;Placa inválida&quot;)
+	@NotBlank
+	private String placacarro;
+
+	@NotNull
+	private int km;
+
+	@ManyToOne(cascade = CascadeType.MERGE)
+	@JsonIgnoreProperties(&quot;anuncioveiculo&quot;)
+	private Vendedores vendedores;
+
+	@ManyToOne(cascade = CascadeType.MERGE)
+	@JsonIgnoreProperties(&quot;anuncioveiculo&quot;)
+	private VeiculosMarca veiculosmarca;
+
+	@OneToMany(mappedBy = &quot;anuncioveiculo&quot;)
+	@JsonIgnoreProperties(&quot;anuncioveiculo&quot;)
+	private List&lt;Proposta&gt; proposta;
+	
+	@ManyToMany
+	@JoinTable(name=&quot;carro_acessorio&quot;)
+	private List&lt;Acessorio&gt; acessorios;
+	
+	// Getters and Setters
+
+    public Long getIdAnuncio() {
+<span class="nc" id="L78">        return idAnuncio;</span>
+    }
+
+    public void setIdAnuncio(Long idAnuncio) {
+<span class="nc" id="L82">        this.idAnuncio = idAnuncio;</span>
+<span class="nc" id="L83">    }</span>
+
+    public String getCor() {
+<span class="nc" id="L86">        return cor;</span>
+    }
+
+    public void setCor(String cor) {
+<span class="nc" id="L90">        this.cor = cor;</span>
+<span class="nc" id="L91">    }</span>
+
+    public String getImagem() {
+<span class="nc" id="L94">        return imagem;</span>
+    }
+
+    public void setImagem(String imagem) {
+<span class="nc" id="L98">        this.imagem = imagem;</span>
+<span class="nc" id="L99">    }</span>
+
+    public String getModelo() {
+<span class="nc" id="L102">        return modelo;</span>
+    }
+
+    public void setModelo(String modelo) {
+<span class="nc" id="L106">        this.modelo = modelo;</span>
+<span class="nc" id="L107">    }</span>
+
+    public int getAno() {
+<span class="nc" id="L110">        return ano;</span>
+    }
+
+    public void setAno(int ano) {
+<span class="nc" id="L114">        this.ano = ano;</span>
+<span class="nc" id="L115">    }</span>
+
+    public String getCombustivel() {
+<span class="nc" id="L118">        return combustivel;</span>
+    }
+
+    public void setCombustivel(String combustivel) {
+<span class="nc" id="L122">        this.combustivel = combustivel;</span>
+<span class="nc" id="L123">    }</span>
+
+    public double getValorcarro() {
+<span class="nc" id="L126">        return valorcarro;</span>
+    }
+
+    public void setValorcarro(double valorcarro) {
+<span class="nc" id="L130">        this.valorcarro = valorcarro;</span>
+<span class="nc" id="L131">    }</span>
+
+    public String getPlacacarro() {
+<span class="nc" id="L134">        return placacarro;</span>
+    }
+
+    public void setPlacacarro(String placacarro) {
+<span class="nc" id="L138">        this.placacarro = placacarro;</span>
+<span class="nc" id="L139">    }</span>
+
+    public int getKm() {
+<span class="nc" id="L142">        return km;</span>
+    }
+
+    public void setKm(int km) {
+<span class="nc" id="L146">        this.km = km;</span>
+<span class="nc" id="L147">    }</span>
+
+    public Vendedores getVendedores() {
+<span class="nc" id="L150">        return vendedores;</span>
+    }
+
+    public void setVendedores(Vendedores vendedores) {
+<span class="nc" id="L154">        this.vendedores = vendedores;</span>
+<span class="nc" id="L155">    }</span>
+
+    public VeiculosMarca getVeiculosmarca() {
+<span class="nc" id="L158">        return veiculosmarca;</span>
+    }
+
+    public void setVeiculosmarca(VeiculosMarca veiculosmarca) {
+<span class="nc" id="L162">        this.veiculosmarca = veiculosmarca;</span>
+<span class="nc" id="L163">    }</span>
+
+    public List&lt;Proposta&gt; getProposta() {
+<span class="nc" id="L166">        return proposta;</span>
+    }
+
+    public void setProposta(List&lt;Proposta&gt; proposta) {
+<span class="nc" id="L170">        this.proposta = proposta;</span>
+<span class="nc" id="L171">    }</span>
+
+    public List&lt;Acessorio&gt; getAcessorios() {
+<span class="nc" id="L174">        return acessorios;</span>
+    }
+
+    public void setAcessorios(List&lt;Acessorio&gt; acessorios) {
+<span class="nc" id="L178">        this.acessorios = acessorios;</span>
+<span class="nc" id="L179">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

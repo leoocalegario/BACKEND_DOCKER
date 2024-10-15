@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>VeiculosMarcaService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">WAVEMOTORS</a> &gt; <a href="index.source.html" class="el_package">app.service</a> &gt; <span class="el_source">VeiculosMarcaService.java</span></div><h1>VeiculosMarcaService.java</h1><pre class="source lang-java linenums">package app.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import app.entity.VeiculosMarca;
+import app.repository.VeiculosMarcaRepository;
+
+@Service
+<span class="fc" id="L12">public class VeiculosMarcaService {</span>
+
+	@Autowired
+	private VeiculosMarcaRepository veiculosmarcarepository;
+	
+	@Autowired
+	private LogService logService;
+
+	public String save(VeiculosMarca veiculosmarca) {
+
+<span class="nc" id="L22">		this.veiculosmarcarepository.save(veiculosmarca);</span>
+<span class="nc" id="L23">		logService.createLog(&quot;SAVE&quot;, veiculosmarca.getMarca(),&quot;Marca&quot;);</span>
+<span class="nc" id="L24">		return veiculosmarca.getMarca() + &quot; salvo com sucesso&quot;;</span>
+
+	}
+
+	public String update(Long idMarca, VeiculosMarca veiculosmarca) {
+<span class="nc" id="L29">		veiculosmarca.setIdMarca(idMarca);</span>
+<span class="nc" id="L30">		this.veiculosmarcarepository.save(veiculosmarca);</span>
+		
+<span class="nc" id="L32">		logService.createLog(&quot;UPDATE&quot;, veiculosmarca.getMarca(),&quot;Marca&quot;);</span>
+<span class="nc" id="L33">		return veiculosmarca.getMarca() + &quot;atualizado com sucesso&quot;;</span>
+	}
+
+	public String delete(Long idMarca) {
+<span class="nc" id="L37">		VeiculosMarca veiculosmarca = this.veiculosmarcarepository.findByIdMarca(idMarca);</span>
+<span class="nc" id="L38">		logService.createLog(&quot;DELETE&quot;, veiculosmarca.getMarca(),&quot;Marca&quot;);</span>
+<span class="nc" id="L39">		this.veiculosmarcarepository.deleteById(idMarca);</span>
+<span class="nc" id="L40">		return &quot;Marca deletada com sucesso&quot;;</span>
+	}
+
+	public List&lt;VeiculosMarca&gt; findAll() {
+<span class="nc" id="L44">		return this.veiculosmarcarepository.findAll();</span>
+	}
+
+	public VeiculosMarca findById(Long id) {
+<span class="nc" id="L48">		VeiculosMarca veiculosmarca = this.veiculosmarcarepository.findById(id).get();</span>
+<span class="nc" id="L49">		return veiculosmarca;</span>
+	}
+
+	public VeiculosMarca findByMarca(String marca) {
+<span class="nc" id="L53">		VeiculosMarca veiculosMarca = veiculosmarcarepository.findByMarca(marca);</span>
+<span class="nc" id="L54">		return veiculosMarca;</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

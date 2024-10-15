@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PropostaService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">WAVEMOTORS</a> &gt; <a href="index.source.html" class="el_package">app.service</a> &gt; <span class="el_source">PropostaService.java</span></div><h1>PropostaService.java</h1><pre class="source lang-java linenums">package app.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import app.entity.Proposta;
+import app.repository.PropostaRepository;
+
+@Service
+<span class="fc" id="L13">public class PropostaService {</span>
+	@Autowired
+	private PropostaRepository propostaRepository;
+
+	public String save(Proposta proposta) {
+<span class="nc" id="L18">		this.verificarValor(proposta);</span>
+<span class="nc" id="L19">		this.propostaRepository.save(proposta);</span>
+<span class="nc" id="L20">		return &quot;Sua proposta foi enviada!&quot;;</span>
+	}
+
+	public Proposta findById(Long id) {
+<span class="nc" id="L24">		Optional&lt;Proposta&gt; proposta = this.propostaRepository.findById(id);</span>
+<span class="nc" id="L25">		return proposta.get();</span>
+	}
+
+	public List&lt;Proposta&gt; listAll() {
+<span class="nc" id="L29">		List&lt;Proposta&gt; proposta = this.propostaRepository.findAll();</span>
+<span class="nc" id="L30">		return proposta;</span>
+	}
+
+	public String delete(Long id) {
+<span class="nc" id="L34">		this.propostaRepository.deleteById(id);</span>
+<span class="nc" id="L35">		return &quot;Proposta deletada com sucesso!&quot;;</span>
+	}
+
+	public String update(Proposta proposta, Long id) {
+<span class="nc" id="L39">		proposta.setIdProposta(id);</span>
+<span class="nc" id="L40">		this.propostaRepository.save(proposta);</span>
+<span class="nc" id="L41">		return &quot;Proposta Atualizada&quot;;</span>
+	}
+
+
+	public List&lt;Proposta&gt; findByvalorProposta(double valorProposta) {
+<span class="nc" id="L46">		return propostaRepository.findByvalorProposta(valorProposta);</span>
+	}
+
+	public void verificarValor(Proposta proposta) {
+<span class="nc bnc" id="L50" title="All 2 branches missed.">		if (proposta.getValorProposta() &lt;= 5000) {</span>
+<span class="nc" id="L51">			throw new RuntimeException(&quot;Não é possivel salvar a proposta menores que R$5000,00 reais&quot;);</span>
+		}
+<span class="nc" id="L53">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

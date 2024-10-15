@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SecurityConfig.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">WAVEMOTORS</a> &gt; <a href="index.source.html" class="el_package">app.config</a> &gt; <span class="el_source">SecurityConfig.java</span></div><h1>SecurityConfig.java</h1><pre class="source lang-java linenums">package app.config;
+
+import java.util.Arrays;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
+
+@Configuration
+@EnableWebSecurity
+<span class="fc" id="L24">public class SecurityConfig  {</span>
+
+	@Autowired
+	private JwtAuthenticationFilter jwtAuthFilter;
+
+	@Autowired
+	private AuthenticationProvider authenticationProvider;
+	
+
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+<span class="fc" id="L35">		http    </span>
+<span class="fc" id="L36">		.csrf(AbstractHttpConfigurer::disable)</span>
+<span class="fc" id="L37">		.cors(AbstractHttpConfigurer::disable)</span>
+<span class="fc" id="L38">		.authorizeHttpRequests((requests) -&gt; requests</span>
+<span class="fc" id="L39">				.requestMatchers(&quot;/api/login&quot;).permitAll()</span>
+<span class="fc" id="L40">				.requestMatchers(&quot;/api/anuncioveiculo/findAll&quot;).permitAll()</span>
+<span class="fc" id="L41">				.requestMatchers(&quot;/api/Acessorio/listAll&quot;).permitAll()</span>
+<span class="fc" id="L42">				.requestMatchers(&quot;/api/anuncioveiculo/findById/{idAnuncio}&quot;).permitAll()</span>
+<span class="fc" id="L43">				.requestMatchers(&quot;/api/VeiculosMarca/listAll&quot;).permitAll()</span>
+<span class="fc" id="L44">				.requestMatchers(&quot;/api/Proposta/save&quot;).permitAll()</span>
+<span class="fc" id="L45">				.anyRequest().authenticated())</span>
+<span class="fc" id="L46">		.authenticationProvider(authenticationProvider)</span>
+<span class="fc" id="L47">		.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)</span>
+<span class="fc" id="L48">		.sessionManagement(customizer -&gt; customizer.sessionCreationPolicy(SessionCreationPolicy.STATELESS));</span>
+
+<span class="fc" id="L50">		return http.build();</span>
+	}
+	
+	
+	@Bean
+	public FilterRegistrationBean&lt;CorsFilter&gt; corsFilter() {
+<span class="fc" id="L56">		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();</span>
+<span class="fc" id="L57">		CorsConfiguration config = new CorsConfiguration();</span>
+<span class="fc" id="L58">		config.setAllowCredentials(true);</span>
+<span class="fc" id="L59">		config.setAllowedOriginPatterns(Arrays.asList(&quot;*&quot;));</span>
+		//config.addAllowedOrigin(&quot;http://localhost:4200&quot;);
+<span class="fc" id="L61">		config.setAllowedHeaders(Arrays.asList(HttpHeaders.AUTHORIZATION,HttpHeaders.CONTENT_TYPE,HttpHeaders.ACCEPT));</span>
+<span class="fc" id="L62">		config.setAllowedMethods(Arrays.asList(HttpMethod.GET.name(),HttpMethod.POST.name(),HttpMethod.PUT.name(),HttpMethod.DELETE.name()));</span>
+<span class="fc" id="L63">		config.setMaxAge(3600L);</span>
+<span class="fc" id="L64">		source.registerCorsConfiguration(&quot;/**&quot;, config);</span>
+<span class="fc" id="L65">		FilterRegistrationBean&lt;CorsFilter&gt; bean = new FilterRegistrationBean&lt;CorsFilter&gt;(new CorsFilter(source));</span>
+<span class="fc" id="L66">		bean.setOrder(-102);</span>
+<span class="fc" id="L67">		return bean;</span>
+	}
+	
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
