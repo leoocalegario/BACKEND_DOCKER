@@ -1,37 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LoginService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">WAVEMOTORS</a> &gt; <a href="index.source.html" class="el_package">app.auth</a> &gt; <span class="el_source">LoginService.java</span></div><h1>LoginService.java</h1><pre class="source lang-java linenums">//AuthenticationService.java
 package app.auth;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-
-import app.config.JwtServiceGenerator;
-import app.entity.Vendedores;
-import app.repository.VendedoresRepository;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
 
 @Service
-<span class="fc" id="L14">public class LoginService {</span>
-	
-	@Autowired
-	private VendedoresRepository repository;
-	@Autowired
-	private JwtServiceGenerator jwtService;
-	@Autowired
-	private AuthenticationManager authenticationManager;
+<span class="fc" id="L13">public class LoginService {</span>
 
 
-	public String logar(Login login) {
-<span class="nc" id="L25">		authenticationManager.authenticate(</span>
-				new UsernamePasswordAuthenticationToken(
-<span class="nc" id="L27">						login.getUsername(),</span>
-<span class="nc" id="L28">						login.getPassword()</span>
-						)
-				);
-<span class="nc" id="L31">		Vendedores user = repository.findByEmail(login.getUsername()).get();</span>
-<span class="nc" id="L32">		String jwtToken = jwtService.generateToken(user);</span>
-		
-<span class="nc" id="L34">		return jwtToken;</span>
+	public String logar(User user) {
+
+<span class="nc" id="L18">		HttpHeaders headers = new HttpHeaders();</span>
+<span class="nc" id="L19">		RestTemplate rt = new RestTemplate();</span>
+<span class="nc" id="L20">		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);</span>
+
+<span class="nc" id="L22">		MultiValueMap&lt;String, String&gt; formData = new LinkedMultiValueMap&lt;&gt;();</span>
+<span class="nc" id="L23">		formData.add(&quot;client_id&quot;, user.clientId());</span>
+<span class="nc" id="L24">		formData.add(&quot;username&quot;, user.username());</span>
+<span class="nc" id="L25">		formData.add(&quot;password&quot;, user.password());</span>
+<span class="nc" id="L26">		formData.add(&quot;grant_type&quot;, user.grantType());</span>
+
+<span class="nc" id="L28">		String url = &quot;http://keycloak.home.intranet:8080/realms/myrealm/protocol/openid-connect/token&quot;;</span>
+
+<span class="nc" id="L30">		HttpEntity&lt;MultiValueMap&lt;String, String&gt;&gt; entity</span>
+				= new HttpEntity&lt;&gt;(formData, headers);
+<span class="nc" id="L32">		String result = rt.postForEntity(url, entity, String.class).getBody();</span>
+
+<span class="nc" id="L34">		System.out.println(result);</span>
+<span class="nc" id="L35">		return result;</span>
 	}
 
 }

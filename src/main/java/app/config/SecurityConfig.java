@@ -14,7 +14,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -23,11 +22,11 @@ import org.springframework.web.filter.CorsFilter;
 @EnableWebSecurity
 public class SecurityConfig  {
 
-	@Autowired
-	private JwtAuthenticationFilter jwtAuthFilter;
-
-	@Autowired
-	private AuthenticationProvider authenticationProvider;
+//	@Autowired
+//	private JwtAuthenticationFilter jwtAuthFilter;
+//
+//	@Autowired
+//	private AuthenticationProvider authenticationProvider;
 	
 
 	@Bean
@@ -35,6 +34,8 @@ public class SecurityConfig  {
 		http    
 		.csrf(AbstractHttpConfigurer::disable)
 		.cors(AbstractHttpConfigurer::disable)
+		.oauth2ResourceServer(oauth2 -> oauth2
+			.jwt(jwt -> jwt.jwtAuthenticationConverter(new JwtConverter())))
 		.authorizeHttpRequests((requests) -> requests
 				.requestMatchers("/api/login").permitAll()
 				.requestMatchers("/api/anuncioveiculo/findAll").permitAll()
@@ -43,8 +44,8 @@ public class SecurityConfig  {
 				.requestMatchers("/api/VeiculosMarca/listAll").permitAll()
 				.requestMatchers("/api/Proposta/save").permitAll()
 				.anyRequest().authenticated())
-		.authenticationProvider(authenticationProvider)
-		.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+	//	.authenticationProvider(authenticationProvider)
+	//	.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
 		.sessionManagement(customizer -> customizer.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
 		return http.build();

@@ -20,7 +20,7 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
 
-@Service
+//@Service
 public class JwtServiceGenerator {  
 
   public String generateToken(Vendedores userDetails) {

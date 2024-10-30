@@ -29,16 +29,17 @@ public class VeiculosMarcaController {
 
 	@Autowired
 	private VeiculosMarcaService veiculosmarcaservice;
-	@PreAuthorize("hasRole(1) or hasRole(2)")
-	@PostMapping("save")
+	//@PreAuthorize("hasRole(1) or hasRole(2)")
+	@PostMapping("/save")
 	public ResponseEntity<String> save(@RequestBody VeiculosMarca veiculosmarca) {
-		try {
-			String mensagem = this.veiculosmarcaservice.save(veiculosmarca);
-			return new ResponseEntity<String>(mensagem, HttpStatus.OK);
-		} catch (Exception e) {
-
-			return new ResponseEntity<String>("erro: " + e.getMessage(), HttpStatus.BAD_REQUEST);
-		}
+		return new ResponseEntity<String>("sucesso", HttpStatus.OK);
+//		try {
+//			String mensagem = this.veiculosmarcaservice.save(veiculosmarca);
+//			return new ResponseEntity<String>(mensagem, HttpStatus.OK);
+//		} catch (Exception e) {
+//
+//			return new ResponseEntity<String>("erro: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+//		}
 	}
 	@PreAuthorize("hasRole(1) or hasRole(2)")
 	@PutMapping("/update/{id}")

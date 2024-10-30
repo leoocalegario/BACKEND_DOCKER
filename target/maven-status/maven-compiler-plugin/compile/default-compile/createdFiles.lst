@@ -12,6 +12,7 @@ app\auth\Usuario.class
 app\entity\Log.class
 app\AppApplication.class
 app\repository\LogRepository.class
+app\auth\User.class
 app\entity\VeiculosMarca.class
 app\entity\Proposta.class
 app\config\JwtConfig.class
@@ -21,6 +22,7 @@ app\entity\Acessorio.class
 app\service\VendedoresService.class
 app\config\JwtAuthenticationFilter.class
 app\entity\AnuncioVeiculo.class
+app\config\JwtConverter.class
 app\controller\VendedoresController.class
 app\repository\ClienteRepository.class
 app\service\AnuncioVeiculoService.class

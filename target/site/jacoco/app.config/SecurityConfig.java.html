@@ -14,14 +14,13 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 @Configuration
 @EnableWebSecurity
-<span class="fc" id="L24">public class SecurityConfig  {</span>
+<span class="fc" id="L23">public class SecurityConfig  {</span>
 
 	@Autowired
 	private JwtAuthenticationFilter jwtAuthFilter;
@@ -32,39 +31,41 @@ import org.springframework.web.filter.CorsFilter;
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-<span class="fc" id="L35">		http    </span>
-<span class="fc" id="L36">		.csrf(AbstractHttpConfigurer::disable)</span>
-<span class="fc" id="L37">		.cors(AbstractHttpConfigurer::disable)</span>
-<span class="fc" id="L38">		.authorizeHttpRequests((requests) -&gt; requests</span>
-<span class="fc" id="L39">				.requestMatchers(&quot;/api/login&quot;).permitAll()</span>
-<span class="fc" id="L40">				.requestMatchers(&quot;/api/anuncioveiculo/findAll&quot;).permitAll()</span>
-<span class="fc" id="L41">				.requestMatchers(&quot;/api/Acessorio/listAll&quot;).permitAll()</span>
-<span class="fc" id="L42">				.requestMatchers(&quot;/api/anuncioveiculo/findById/{idAnuncio}&quot;).permitAll()</span>
-<span class="fc" id="L43">				.requestMatchers(&quot;/api/VeiculosMarca/listAll&quot;).permitAll()</span>
-<span class="fc" id="L44">				.requestMatchers(&quot;/api/Proposta/save&quot;).permitAll()</span>
-<span class="fc" id="L45">				.anyRequest().authenticated())</span>
-<span class="fc" id="L46">		.authenticationProvider(authenticationProvider)</span>
-<span class="fc" id="L47">		.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)</span>
-<span class="fc" id="L48">		.sessionManagement(customizer -&gt; customizer.sessionCreationPolicy(SessionCreationPolicy.STATELESS));</span>
+<span class="fc" id="L34">		http    </span>
+<span class="fc" id="L35">		.csrf(AbstractHttpConfigurer::disable)</span>
+<span class="fc" id="L36">		.cors(AbstractHttpConfigurer::disable)</span>
+<span class="fc" id="L37">		.oauth2ResourceServer(oauth2 -&gt; oauth2</span>
+<span class="fc" id="L38">			.jwt(jwt -&gt; jwt.jwtAuthenticationConverter(new JwtConverter())))</span>
+<span class="fc" id="L39">		.authorizeHttpRequests((requests) -&gt; requests</span>
+<span class="fc" id="L40">				.requestMatchers(&quot;/api/login&quot;).permitAll()</span>
+<span class="fc" id="L41">				.requestMatchers(&quot;/api/anuncioveiculo/findAll&quot;).permitAll()</span>
+<span class="fc" id="L42">				.requestMatchers(&quot;/api/Acessorio/listAll&quot;).permitAll()</span>
+<span class="fc" id="L43">				.requestMatchers(&quot;/api/anuncioveiculo/findById/{idAnuncio}&quot;).permitAll()</span>
+<span class="fc" id="L44">				.requestMatchers(&quot;/api/VeiculosMarca/listAll&quot;).permitAll()</span>
+<span class="fc" id="L45">				.requestMatchers(&quot;/api/Proposta/save&quot;).permitAll()</span>
+<span class="fc" id="L46">				.anyRequest().authenticated())</span>
+	//	.authenticationProvider(authenticationProvider)
+	//	.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+<span class="fc" id="L49">		.sessionManagement(customizer -&gt; customizer.sessionCreationPolicy(SessionCreationPolicy.STATELESS));</span>
 
-<span class="fc" id="L50">		return http.build();</span>
+<span class="fc" id="L51">		return http.build();</span>
 	}
 	
 	
 	@Bean
 	public FilterRegistrationBean&lt;CorsFilter&gt; corsFilter() {
-<span class="fc" id="L56">		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();</span>
-<span class="fc" id="L57">		CorsConfiguration config = new CorsConfiguration();</span>
-<span class="fc" id="L58">		config.setAllowCredentials(true);</span>
-<span class="fc" id="L59">		config.setAllowedOriginPatterns(Arrays.asList(&quot;*&quot;));</span>
+<span class="fc" id="L57">		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();</span>
+<span class="fc" id="L58">		CorsConfiguration config = new CorsConfiguration();</span>
+<span class="fc" id="L59">		config.setAllowCredentials(true);</span>
+<span class="fc" id="L60">		config.setAllowedOriginPatterns(Arrays.asList(&quot;*&quot;));</span>
 		//config.addAllowedOrigin(&quot;http://localhost:4200&quot;);
-<span class="fc" id="L61">		config.setAllowedHeaders(Arrays.asList(HttpHeaders.AUTHORIZATION,HttpHeaders.CONTENT_TYPE,HttpHeaders.ACCEPT));</span>
-<span class="fc" id="L62">		config.setAllowedMethods(Arrays.asList(HttpMethod.GET.name(),HttpMethod.POST.name(),HttpMethod.PUT.name(),HttpMethod.DELETE.name()));</span>
-<span class="fc" id="L63">		config.setMaxAge(3600L);</span>
-<span class="fc" id="L64">		source.registerCorsConfiguration(&quot;/**&quot;, config);</span>
-<span class="fc" id="L65">		FilterRegistrationBean&lt;CorsFilter&gt; bean = new FilterRegistrationBean&lt;CorsFilter&gt;(new CorsFilter(source));</span>
-<span class="fc" id="L66">		bean.setOrder(-102);</span>
-<span class="fc" id="L67">		return bean;</span>
+<span class="fc" id="L62">		config.setAllowedHeaders(Arrays.asList(HttpHeaders.AUTHORIZATION,HttpHeaders.CONTENT_TYPE,HttpHeaders.ACCEPT));</span>
+<span class="fc" id="L63">		config.setAllowedMethods(Arrays.asList(HttpMethod.GET.name(),HttpMethod.POST.name(),HttpMethod.PUT.name(),HttpMethod.DELETE.name()));</span>
+<span class="fc" id="L64">		config.setMaxAge(3600L);</span>
+<span class="fc" id="L65">		source.registerCorsConfiguration(&quot;/**&quot;, config);</span>
+<span class="fc" id="L66">		FilterRegistrationBean&lt;CorsFilter&gt; bean = new FilterRegistrationBean&lt;CorsFilter&gt;(new CorsFilter(source));</span>
+<span class="fc" id="L67">		bean.setOrder(-102);</span>
+<span class="fc" id="L68">		return bean;</span>
 	}
 	
 

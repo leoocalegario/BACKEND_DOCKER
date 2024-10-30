@@ -8,6 +8,7 @@ C:\Users\leona\OneDrive\Área de Trabalho\QUINTO SEMESTRE\P.I\PROJETO BACK-FRONT
 C:\Users\leona\OneDrive\Área de Trabalho\QUINTO SEMESTRE\P.I\PROJETO BACK-FRONT\BackEnd-Wavemotors-main\src\main\java\app\service\VeiculosMarcaService.java
 C:\Users\leona\OneDrive\Área de Trabalho\QUINTO SEMESTRE\P.I\PROJETO BACK-FRONT\BackEnd-Wavemotors-main\src\main\java\app\service\AnuncioVeiculoService.java
 C:\Users\leona\OneDrive\Área de Trabalho\QUINTO SEMESTRE\P.I\PROJETO BACK-FRONT\BackEnd-Wavemotors-main\src\main\java\app\entity\AnuncioVeiculo.java
+C:\Users\leona\OneDrive\Área de Trabalho\QUINTO SEMESTRE\P.I\PROJETO BACK-FRONT\BackEnd-Wavemotors-main\src\main\java\app\auth\User.java
 C:\Users\leona\OneDrive\Área de Trabalho\QUINTO SEMESTRE\P.I\PROJETO BACK-FRONT\BackEnd-Wavemotors-main\src\main\java\app\repository\AnuncioVeiculoRepository.java
 C:\Users\leona\OneDrive\Área de Trabalho\QUINTO SEMESTRE\P.I\PROJETO BACK-FRONT\BackEnd-Wavemotors-main\src\main\java\app\entity\VeiculosMarca.java
 C:\Users\leona\OneDrive\Área de Trabalho\QUINTO SEMESTRE\P.I\PROJETO BACK-FRONT\BackEnd-Wavemotors-main\src\main\java\app\service\PropostaService.java
@@ -17,6 +18,7 @@ C:\Users\leona\OneDrive\Área de Trabalho\QUINTO SEMESTRE\P.I\PROJETO BACK-FRONT
 C:\Users\leona\OneDrive\Área de Trabalho\QUINTO SEMESTRE\P.I\PROJETO BACK-FRONT\BackEnd-Wavemotors-main\src\main\java\app\repository\ClienteRepository.java
 C:\Users\leona\OneDrive\Área de Trabalho\QUINTO SEMESTRE\P.I\PROJETO BACK-FRONT\BackEnd-Wavemotors-main\src\main\java\app\auth\Usuario.java
 C:\Users\leona\OneDrive\Área de Trabalho\QUINTO SEMESTRE\P.I\PROJETO BACK-FRONT\BackEnd-Wavemotors-main\src\main\java\app\service\LogService.java
+C:\Users\leona\OneDrive\Área de Trabalho\QUINTO SEMESTRE\P.I\PROJETO BACK-FRONT\BackEnd-Wavemotors-main\src\main\java\app\config\JwtConverter.java
 C:\Users\leona\OneDrive\Área de Trabalho\QUINTO SEMESTRE\P.I\PROJETO BACK-FRONT\BackEnd-Wavemotors-main\src\main\java\app\auth\LoginController.java
 C:\Users\leona\OneDrive\Área de Trabalho\QUINTO SEMESTRE\P.I\PROJETO BACK-FRONT\BackEnd-Wavemotors-main\src\main\java\app\controller\PropostaController.java
 C:\Users\leona\OneDrive\Área de Trabalho\QUINTO SEMESTRE\P.I\PROJETO BACK-FRONT\BackEnd-Wavemotors-main\src\main\java\app\auth\Login.java

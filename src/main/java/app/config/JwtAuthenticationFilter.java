@@ -19,11 +19,11 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@Component
+//@Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-	@Autowired
+//	@Autowired
 	private JwtServiceGenerator jwtService;
-	@Autowired
+//	@Autowired
 	private UserDetailsService userDetailsService;
 
 	@Override

@@ -14,20 +14,20 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import app.repository.VendedoresRepository;
 
-@Configuration
+//@Configuration
 public class SecurityManager {
 	
-	@Autowired
+//	@Autowired
 	private VendedoresRepository loginRepository;
 	
 	
-	@Bean
+//	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 
 	
-	@Bean
+//	@Bean
 	public AuthenticationProvider authenticationProvider() {
 		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
 		authProvider.setUserDetailsService(userDetailsService());
@@ -35,13 +35,13 @@ public class SecurityManager {
 		return authProvider;
 	}
 
-	@Bean
+//	@Bean
 	public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
 		return config.getAuthenticationManager();
 	}
 
 
-	@Bean
+//	@Bean
 	public UserDetailsService userDetailsService() {
 		return username -> loginRepository.findByEmail(username)
 				.orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado") );

@@ -15,14 +15,14 @@ import app.repository.LogRepository;
 public class LogService {
 	@Autowired
 	LogRepository logRepository;
-	@Autowired
-	JwtServiceGenerator jwtServiceGenerator;
+//	@Autowired
+//	JwtServiceGenerator jwtServiceGenerator;
 	
 	public void createLog(String metodo,String conteudo,String categoria) {
 		Log log = new Log();
 		DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-		String nome = jwtServiceGenerator.getNomeFromToken();
-		log.setNome(nome);
+		//String nome = jwtServiceGenerator.getNomeFromToken();
+		log.setNome("");
 		log.setMetodo(metodo);
 		log.setTimestamp(LocalDateTime.now().format(formatador));
 		log.setConteudo(conteudo);

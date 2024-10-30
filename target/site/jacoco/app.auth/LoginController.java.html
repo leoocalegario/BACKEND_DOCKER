@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 	private LoginService loginService;
 
 	@PostMapping
-	public ResponseEntity&lt;String&gt; logar(@RequestBody Login login) {
+	public ResponseEntity&lt;String&gt; logar(@RequestBody User user) {
 		try {
-<span class="nc" id="L24">			return ResponseEntity.ok(loginService.logar(login));</span>
+<span class="nc" id="L24">			return ResponseEntity.ok(loginService.logar(user));</span>
 <span class="nc" id="L25">		}catch(AuthenticationException ex) {</span>
 <span class="nc" id="L26">			System.out.println(ex.getMessage());</span>
 <span class="nc" id="L27">			return new ResponseEntity&lt;&gt;(null, HttpStatus.UNAUTHORIZED);</span>
