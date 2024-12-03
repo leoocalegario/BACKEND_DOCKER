@@ -1,7 +1,0 @@
-app\controller\PropostaControllerTest.class
-app\WavemotorsApplicationTests.class
-app\controller\ClienteControllerTest.class
-app\controller\AnuncioVeiculoControllerTest.class
-app\service\PropostaServiceTest.class
-app\controller\VendedoresControllerTest.class
-app\controller\VeiculosMarcaControllerTest.class
